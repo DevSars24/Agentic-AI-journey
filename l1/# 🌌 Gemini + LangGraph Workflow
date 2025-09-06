@@ -1,0 +1,47 @@
+## 🎯 Objective
+
+Experimenting with **LangGraph** workflow engine and integrating it with **Google Gemini API** for simple LLM Q\&A.
+
+## 🛠️ Setup & Tools
+
+* **LangGraph** → for building stateful workflows
+* **Gemini API (google-generativeai)** → as the LLM backend
+* **Python + dotenv** → to manage environment variables (`.env` file with `GEMINI_API_KEY`)
+
+## ⚡ Workflow Explained
+
+1. **Define State** – We use a `TypedDict` to store `question` and `answer`.
+2. **LLM Node** – A function `llm_qa` that queries Gemini with the question.
+3. **Graph Construction** – Using `StateGraph`, we connect:
+
+   ```
+   START → llm_qa → END
+   ```
+4. **Execution** – Pass a question like *“How far is the moon from Earth?”* and get the Gemini-generated answer.
+
+## 🐞 Key Learnings
+
+* **Jupyter JSON cells ≠ Python script** → accidentally copied `null` values which broke the script.
+* `google.generativeai` has no `Client()` → instead, we use:
+
+  ```python
+  model = genai.GenerativeModel("gemini-1.5-flash")
+  response = model.generate_content("your prompt here")
+  ```
+* Debugging environment variables with `print(os.environ.get("GEMINI_API_KEY"))` is super helpful.
+
+## ✅ Final Output
+
+Example run:
+
+```bash
+> python gemini_workflow.py
+The moon is about 384,400 km away from Earth.
+```
+
+## 🚀 Next Steps
+
+* Add multiple nodes (e.g., summarization → translation → answer).
+* Build a chatbot loop with memory.
+* Try LangChain + LangGraph hybrid workflows.
+
