@@ -112,8 +112,3 @@ Through this repo, I aim to:
 * [ ] Integrate external APIs & databases for real-world execution
 * [ ] Add observability with LangSmith
 
----
-
-✨ This is my ongoing **Agentic AI Journey** — from learning the concepts to building real-world applications with LangGraph.
-
----
