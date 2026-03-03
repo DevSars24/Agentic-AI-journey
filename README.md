@@ -104,11 +104,3 @@ Through this repo, I aim to:
 * Document every step of the **Agentic AI journey**
 
 ---
-
-## 📌 Next Steps
-
-* [ ] Implement a hiring assistant (goal-driven agent)
-* [ ] Build a task automation workflow using LangGraph
-* [ ] Integrate external APIs & databases for real-world execution
-* [ ] Add observability with LangSmith
-
