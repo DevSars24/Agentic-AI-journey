@@ -1,0 +1,289 @@
+AGENTIC AI – LECTURE 3 (RAG + TOOLS + LANGGRAPH)
+DETAILED INTERVIEW-ORIENTED NOTES
+
+----------------------------------------
+1. BIG PICTURE (WHAT ARE WE BUILDING?)
+----------------------------------------
+We are building an AI Agent that can:
+- Read webpage data
+- Understand user queries
+- Retrieve relevant information
+- Generate intelligent answers
+
+This system is called:
+RAG (Retrieval-Augmented Generation) Agent
+
+Definition:
+RAG = Retrieval + Generation
+It retrieves relevant data first, then uses LLM to generate answers.
+
+----------------------------------------
+2. COMPLETE FLOW (VERY IMPORTANT)
+----------------------------------------
+User Question
+    ↓
+Convert to Embedding
+    ↓
+Search in Vector Database
+    ↓
+Retrieve Top Relevant Chunks
+    ↓
+Send Context + Question to LLM
+    ↓
+Generate Final Answer
+
+This pipeline is the backbone of modern AI systems.
+
+----------------------------------------
+3. EMBEDDINGS (CORE CONCEPT)
+----------------------------------------
+Definition:
+Embedding = Numerical (vector) representation of text.
+
+Why needed?
+- Machines cannot understand raw text
+- Embeddings convert text → numbers
+- Enables semantic similarity search
+
+Example:
+"AI is amazing" → [0.21, -0.44, 0.78, ...]
+
+Interview Point:
+Embeddings capture meaning, not just keywords.
+
+----------------------------------------
+4. VECTOR DATABASE
+----------------------------------------
+Definition:
+A database that stores embeddings and allows similarity search.
+
+Purpose:
+- Find similar content quickly
+- Retrieve relevant information
+
+Popular Vector DBs:
+- Chroma
+- Pinecone
+- Weaviate
+
+Interview Answer:
+Vector DB is used to perform semantic search using embeddings.
+
+----------------------------------------
+5. CHUNKING (VERY IMPORTANT)
+----------------------------------------
+Definition:
+Breaking large text into smaller pieces.
+
+Why needed?
+- LLM has token limits
+- Large documents cannot be processed at once
+
+Example:
+A long webpage → split into 300–500 token chunks
+
+Code Concept:
+function chunkText(text, chunkSize)
+
+Interview Point:
+Chunking improves retrieval accuracy and efficiency.
+
+----------------------------------------
+6. CODE FLOW (SCREENSHOT 1)
+----------------------------------------
+
+Step 1: Create Embedding
+- Convert user question into vector form
+
+Step 2: Query Vector DB
+- Search similar chunks using embedding
+- nResults = 3 (top 3 matches)
+
+Step 3: Extract Data
+- Retrieve metadata
+- Clean empty values
+
+Step 4: Output
+- Print retrieved relevant text
+
+Key Insight:
+This is the "Retrieval" part of RAG.
+
+----------------------------------------
+7. RAG PIPELINE UNDERSTANDING
+----------------------------------------
+RAG has 2 parts:
+
+1. Retrieval
+- Embedding
+- Vector DB search
+- Chunk selection
+
+2. Generation
+- Pass context to LLM
+- Generate answer
+
+Interview Tip:
+RAG improves accuracy by grounding LLM with real data.
+
+----------------------------------------
+8. LANGCHAIN + LANGGRAPH
+----------------------------------------
+
+LangChain:
+- Provides tools, LLM wrappers
+- Simplifies AI app development
+
+LangGraph:
+- Advanced framework for agents
+- Handles multi-step workflows
+- Maintains state
+
+----------------------------------------
+9. LLM INITIALIZATION
+----------------------------------------
+const llm = new ChatOpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+  modelName: 'gpt-4o'
+});
+
+Purpose:
+- Connect to LLM
+- Configure model
+
+----------------------------------------
+10. TOOL CREATION
+----------------------------------------
+const multiply = tool(async ({a, b}) => {
+  return a * b;
+});
+
+Definition:
+Tool = External function that agent can call.
+
+Why important?
+- LLM cannot perform real actions
+- Tools extend capability
+
+Examples:
+- Calculator
+- API calls
+- Database queries
+
+----------------------------------------
+11. AGENT WITH TOOLS FLOW
+----------------------------------------
+User Input
+    ↓
+LLM decides action
+    ↓
+Tool call
+    ↓
+Tool result (observation)
+    ↓
+LLM processes again
+    ↓
+Final answer
+
+----------------------------------------
+12. STATEGRAPH (LANGGRAPH CORE)
+----------------------------------------
+Definition:
+StateGraph manages flow and state of agent.
+
+Responsibilities:
+- Control execution flow
+- Maintain messages
+- Enable looping
+
+Interview Answer:
+StateGraph is used to build stateful multi-step AI agents.
+
+----------------------------------------
+13. MESSAGE TYPES
+----------------------------------------
+
+SystemMessage:
+- Defines behavior of agent
+
+ToolMessage:
+- Carries tool output
+
+MessagesAnnotation:
+- Maintains conversation state
+
+----------------------------------------
+14. IMPORTANT DIFFERENCES
+----------------------------------------
+
+LangChain vs LangGraph:
+
+LangChain:
+- Linear workflows
+- Simpler use cases
+
+LangGraph:
+- Graph-based workflows
+- Complex agents
+- Stateful execution
+
+----------------------------------------
+15. INTERVIEW QUESTIONS
+----------------------------------------
+
+Q1: What is RAG?
+A: Combines retrieval and generation for accurate responses.
+
+Q2: Why embeddings?
+A: To convert text into vectors for semantic search.
+
+Q3: What is vector DB?
+A: Database for storing and searching embeddings.
+
+Q4: Why chunking?
+A: To handle large data and improve retrieval.
+
+Q5: What is LangGraph?
+A: Framework for building stateful AI agents.
+
+Q6: Why tools?
+A: To allow LLM to perform real-world actions.
+
+Q7: Difference between chatbot and agent?
+A:
+Chatbot → responds
+Agent → acts + uses tools
+
+----------------------------------------
+16. REAL-WORLD EXAMPLE
+----------------------------------------
+
+Query: "What is Cohort about?"
+
+Steps:
+1. Convert to embedding
+2. Search vector DB
+3. Retrieve top chunks
+4. Send to LLM
+5. Generate answer
+
+----------------------------------------
+17. ONE-LINE SUMMARY
+----------------------------------------
+
+RAG Agent = Embeddings + Vector DB + Chunking + LLM + Tools + Agent Loop
+
+----------------------------------------
+18. FINAL REVISION POINTS
+----------------------------------------
+
+- Embedding = vector representation
+- Vector DB = semantic search
+- Chunking = split large text
+- RAG = retrieve + generate
+- Tools = external actions
+- LangGraph = flow control
+
+----------------------------------------
+END OF NOTES
+------------------------
