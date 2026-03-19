@@ -1,0 +1,387 @@
+# 🧠 AGENTIC AI — COMPLETE INTERVIEW NOTES
+
+---
+
+## 🚀 1. What is Agentic AI?
+
+**Definition:**
+Agentic AI refers to AI systems that can:
+
+* Think (reason)
+* Act (use tools)
+* Decide (autonomously)
+* Iterate (multi-step execution)
+
+👉 Unlike normal LLM:
+
+* LLM = just answers
+* Agent = **takes actions + uses tools + handles workflows**
+
+---
+
+## ⚡ 2. Core Architecture of Agent
+
+```
+User Query → Agent → Reasoning → Tool Call → Observation → Final Output
+```
+
+### 💡 Key Idea:
+
+Agent = LLM + Tools + Context + Control Flow
+
+---
+
+## 🧩 3. Core Components (VERY IMPORTANT 🔥)
+
+---
+
+### 1️⃣ Agent
+
+```ts
+const agent = new Agent({
+  instructions: "You are a storyteller..."
+});
+```
+
+**Role:**
+
+* Brain of system
+* Decides what to do
+* Uses instructions as behavior
+
+---
+
+### 2️⃣ Instructions (System Prompt)
+
+```ts
+instructions: "You are an expert customer support agent"
+```
+
+💡 Defines:
+
+* Personality
+* Role
+* Behavior
+* Output style
+
+👉 Interview Line:
+
+> Instructions act as the "brain configuration" of an agent.
+
+---
+
+### 3️⃣ Tools (MOST IMPORTANT)
+
+```ts
+const getUserInfoTool = tool({
+  name: 'get_user_info',
+  description: 'Gets user info',
+  execute: async (_, ctx) => {
+    return `UserId=${ctx?.context.userId}`
+  }
+});
+```
+
+### 🔥 Tool = External Capability
+
+Agent can:
+
+* Call APIs
+* Fetch DB data
+* Perform actions
+
+👉 Think:
+
+> Tools = Agent’s hands
+
+---
+
+### 4️⃣ Context (VERY IMPORTANT)
+
+```ts
+ctx.context.userId
+```
+
+💡 Context = memory passed during execution
+
+Used for:
+
+* User data
+* Session data
+* State
+
+👉 Interview Line:
+
+> Context allows agents to behave dynamically based on runtime information.
+
+---
+
+### 5️⃣ Run Function
+
+```ts
+const result = await run(agent, query);
+```
+
+💡 This:
+
+* Executes agent
+* Handles reasoning + tool calls
+
+---
+
+## 🌊 4. Streaming (Real-time Output)
+
+```ts
+const result = await run(agent, q, { stream: true });
+const stream = result.toTextStream();
+```
+
+### 🔥 Why Streaming?
+
+* Real-time response
+* Better UX
+* Like ChatGPT typing
+
+👉 Used in:
+
+* Chat apps
+* AI assistants
+
+---
+
+## 🔄 5. Async Generator Streaming
+
+```ts
+async function* streamOutput(q: string) {
+  const result = await run(agent, q, { stream: true });
+  const stream = result.toTextStream();
+}
+```
+
+💡 Used for:
+
+* Handling chunks of data
+* Continuous output
+
+---
+
+## 🔁 6. Human-in-the-Loop (VERY IMPORTANT 🔥)
+
+```ts
+const answer = await rl.question(`${question} (y/n): `);
+const normalizedAnswer = answer.toLowerCase();
+return normalizedAnswer === 'y' || normalizedAnswer === 'yes';
+```
+
+### 💡 Concept:
+
+Agent asks human before critical actions
+
+👉 Example:
+
+* Sending email
+* Deleting data
+* Making payments
+
+👉 Interview Line:
+
+> HITL ensures safety and control in autonomous systems.
+
+---
+
+## 🔀 7. Handoffs (Multi-Agent System)
+
+```ts
+handoffs: [dataAgentTwo]
+```
+
+💡 Agent can transfer task to another agent
+
+👉 Example:
+
+* Support Agent → Billing Agent
+* Planner Agent → Executor Agent
+
+---
+
+## 🔁 8. Interruptions Handling
+
+```ts
+let hasInterruptions = result.interruptions?.length > 0;
+```
+
+💡 Used when:
+
+* Agent needs clarification
+* Requires approval
+
+---
+
+## 🧠 9. Agent Flow (FULL PIPELINE)
+
+```
+1. User Input
+2. Agent reads instructions
+3. Agent thinks (LLM reasoning)
+4. Decides:
+   → Answer directly OR
+   → Call Tool
+5. Tool executes
+6. Result returned
+7. Agent final response
+```
+
+---
+
+## 🔥 10. Example Use Cases
+
+### 🛠️ 1. Customer Support Agent
+
+* Fetch user data
+* Answer queries
+
+### 📊 2. Data Agent
+
+* Query DB
+* Analyze results
+
+### ✍️ 3. Content Agent
+
+* Generate blogs
+* Write posts
+
+### 🤖 4. Autonomous Workflow Agent
+
+* Multi-step task execution
+
+---
+
+## ⚠️ 11. Important Concepts for Interviews
+
+### ⭐ Difference: LLM vs Agent
+
+| Feature  | LLM       | Agent          |
+| -------- | --------- | -------------- |
+| Output   | Text only | Actions + Text |
+| Memory   | No        | Yes (context)  |
+| Tools    | No        | Yes            |
+| Autonomy | Low       | High           |
+
+---
+
+### ⭐ Tool Calling Flow
+
+```
+User → Agent → Tool → Result → Agent → Output
+```
+
+---
+
+### ⭐ Deterministic vs Agentic
+
+* Deterministic → Fixed logic
+* Agentic → Dynamic decisions
+
+---
+
+## 💣 12. Advanced Concepts (VERY HIGH VALUE)
+
+---
+
+### 🧠 1. Reasoning Loop
+
+Agent may:
+
+* Think
+* Act
+* Observe
+* Repeat
+
+👉 Called:
+
+> ReAct Pattern (Reason + Act)
+
+---
+
+### 🧠 2. Planning Agents
+
+Agent can:
+
+* Break problem
+* Execute steps
+
+---
+
+### 🧠 3. Memory Types
+
+* Short-term → context
+* Long-term → DB/vector store
+
+---
+
+## 🔥 13. BEST INTERVIEW ANSWER (USE THIS)
+
+If asked:
+
+👉 *“What is Agentic AI?”*
+
+Say:
+
+> Agentic AI refers to AI systems that can autonomously reason, take actions using tools, maintain context, and execute multi-step workflows to solve complex problems, unlike traditional LLMs which only generate text.
+
+---
+
+## 🧩 14. Real Code Summary
+
+### Tool
+
+```ts
+tool({ name, description, execute })
+```
+
+### Agent
+
+```ts
+new Agent({ instructions, tools })
+```
+
+### Run
+
+```ts
+run(agent, input)
+```
+
+### Stream
+
+```ts
+run(agent, input, { stream: true })
+```
+
+---
+
+## 🧠 15. Final Mental Model
+
+```
+Agent = Brain (LLM)
+       + Tools (APIs)
+       + Context (Memory)
+       + Control Flow (Loop)
+```
+
+---
+
+# 🚀 PRO TIP (IMPORTANT)
+
+If you want to stand out:
+
+👉 Build this project:
+
+* Customer Support Agent
+* With:
+
+  * Tool calling
+  * Streaming
+  * Human approval
+  * Multi-agent handoff
+
+---
